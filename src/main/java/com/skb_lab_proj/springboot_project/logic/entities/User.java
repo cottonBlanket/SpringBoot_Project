@@ -1,4 +1,4 @@
-package com.skb_lab_proj.springboot_project.entities;
+package com.skb_lab_proj.springboot_project.logic.entities;
 
 
 import javax.persistence.Column;

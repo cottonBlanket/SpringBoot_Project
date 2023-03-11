@@ -1,5 +1,6 @@
-package com.skb_lab_proj.springboot_project.controllers;
+package com.skb_lab_proj.springboot_project.api.controllers.publics.User;
 
+import org.hibernate.service.ServiceRegistry;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
