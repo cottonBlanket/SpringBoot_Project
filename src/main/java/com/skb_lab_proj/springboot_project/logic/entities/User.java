@@ -1,11 +1,12 @@
 package com.skb_lab_proj.springboot_project.logic.entities;
 
+import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
 
 @Value
-public class User {
+public class User extends BaseEntity<Long> {
 
     public int id;
 
