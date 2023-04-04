@@ -14,7 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public abstract class BaseCRUDRepository<T extends BaseEntity<ID>, ID> implements JpaRepository<T, ID> {
+public abstract class BaseCRUDRepository<T extends BaseEntity, ID> implements JpaRepository<T, ID> {
 
     Map<ID, T> entities = new ConcurrentHashMap<>();
 
@@ -53,7 +53,7 @@ public abstract class BaseCRUDRepository<T extends BaseEntity<ID>, ID> implement
 
     @Override
     public void delete(T entity) {
-
+        entities.remove(entity.getId());
     }
 
     @Override
@@ -65,7 +65,9 @@ public abstract class BaseCRUDRepository<T extends BaseEntity<ID>, ID> implement
 
     @Override
     public void deleteAll(Iterable<? extends T> entities) {
-
+        entities.forEach(
+                entity -> this.entities.remove(entity.getId())
+        );
     }
 
     @Override

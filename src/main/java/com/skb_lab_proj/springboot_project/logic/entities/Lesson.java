@@ -1,22 +1,36 @@
 package com.skb_lab_proj.springboot_project.logic.entities;
 
+import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 @Table(name = "lesson")
-public class Lesson {
-    @Id
-    public long id;
-    public String name;
+public class Lesson extends BaseEntity {
+    @NotNull
+    private String name;
     @ManyToMany
-    public List<Task> tasks;
-    public Lesson(){
+    private List<Task> tasks;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

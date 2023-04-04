@@ -2,16 +2,22 @@ package com.skb_lab_proj.springboot_project.dal.base;
 
 import lombok.Getter;
 
-@Getter
-public abstract class BaseEntity<ID> {
-    private ID id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-    public boolean isIdNotInitialized() {
-        return id == null;
+@Getter
+@Entity
+public abstract class BaseEntity {
+    @Id
+    private java.lang.Long id;
+
+    public void setId(java.lang.Long id) {
+        this.id = id;
     }
 
-    public void initId(ID id) {
-        if (isIdNotInitialized())
-            this.id = id;
+    public java.lang.Long getId() {
+        return id;
     }
 }

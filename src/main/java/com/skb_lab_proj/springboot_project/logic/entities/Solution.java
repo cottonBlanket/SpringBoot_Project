@@ -1,5 +1,6 @@
 package com.skb_lab_proj.springboot_project.logic.entities;
 
+import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import lombok.Builder;
 
 import javax.persistence.Entity;
@@ -8,13 +9,23 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "solution")
-public class Solution {
-    @Id
-    public long id;
-    public String gitLink;
-    public String allow;
+public class Solution extends BaseEntity {
+    private String gitLink;
+    private Boolean allow;
 
-    public Solution(){
+    public String getGitLink() {
+        return gitLink;
+    }
 
+    public void setGitLink(String gitLink) {
+        this.gitLink = gitLink;
+    }
+
+    public Boolean getAllow() {
+        return allow;
+    }
+
+    public void setAllow(Boolean allow) {
+        this.allow = allow;
     }
 }
