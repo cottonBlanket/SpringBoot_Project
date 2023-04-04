@@ -1,13 +1,14 @@
 package com.skb_lab_proj.springboot_project.api.controllers.user;
 
 import com.skb_lab_proj.springboot_project.api.annotation.UserApiV1;
-import com.skb_lab_proj.springboot_project.api.dto.request.CreateUserRequestModel;
-import com.skb_lab_proj.springboot_project.api.dto.response.CreateUserResponseModel;
+import com.skb_lab_proj.springboot_project.api.controllers.user.dto.request.CreateUserRequestModel;
+import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
 import com.skb_lab_proj.springboot_project.logic.entities.User;
 import com.skb_lab_proj.springboot_project.logic.managers.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,10 @@ public class UserController {
     @PostMapping("/createuser")
     public ResponseEntity<CreateUserResponseModel> createUser(
             @RequestBody CreateUserRequestModel model) {
-        User user = new User(users.size() + 1, model.name);
+        User user = new User()
+        {
+
+        };
         users.add(user);
         return new ResponseEntity<>(new CreateUserResponseModel(user), HttpStatus.OK);
     }

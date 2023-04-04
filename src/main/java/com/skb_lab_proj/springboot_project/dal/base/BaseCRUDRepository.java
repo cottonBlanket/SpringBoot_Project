@@ -53,7 +53,7 @@ public abstract class BaseCRUDRepository<T extends BaseEntity<ID>, ID> implement
 
     @Override
     public void delete(T entity) {
-        entities.remove(entity.getId());
+
     }
 
     @Override
@@ -65,9 +65,7 @@ public abstract class BaseCRUDRepository<T extends BaseEntity<ID>, ID> implement
 
     @Override
     public void deleteAll(Iterable<? extends T> entities) {
-        entities.forEach(
-                entity -> this.entities.remove(entity.getId())
-        );
+
     }
 
     @Override
