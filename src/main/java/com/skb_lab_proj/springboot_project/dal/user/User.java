@@ -7,11 +7,13 @@ import lombok.NonNull;
 import lombok.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.util.List;
 
 @Entity
+@Table(name = "User")
 public class User extends BaseEntity {
-
+    @Max(32)
     @NonNull
 //    @UserConstraint
     private String name;

@@ -6,12 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.FluentQuery;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public abstract class BaseRepository<T extends BaseEntity, Long> implements JpaRepository<T, Long> {
+@Transactional
+public class BaseRepository<T extends BaseEntity, Long> implements JpaRepository<T, Long> {
 
     Map<Long, T> entities = new ConcurrentHashMap<>();
 
@@ -75,9 +77,9 @@ public abstract class BaseRepository<T extends BaseEntity, Long> implements JpaR
         return null;
     }
 
-    @Override
+    @Transactional
     public Optional<T> findById(Long aLong) {
-        return Optional.empty();
+        return null;
     }
 
     @Override

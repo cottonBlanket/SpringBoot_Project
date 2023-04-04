@@ -28,14 +28,16 @@ public class UserController {
     private List<User> users = new ArrayList<User>();
 
     @PostMapping("/createuser")
-    public ResponseEntity<CreateUserResponseModel> createUser(
+    public ResponseEntity<User> createUser(
             @RequestBody CreateUserRequestModel model) {
-        User user = new User()
-        {
-
-        };
-        users.add(user);
-        return new ResponseEntity<>(new CreateUserResponseModel(user), HttpStatus.OK);
+        User user = new User();
+        user.setName(model.name);
+        user.setEmail(model.email);
+        user.setSurname(model.surname);
+        user.setRole(model.role);
+        user.setPassword(model.password);
+        User a = userManager.createUser(user);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     @GetMapping("/all")
@@ -43,8 +45,8 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/get/name={username}")
-    public ResponseEntity<User> getUser(@PathVariable String username) {
-        return new ResponseEntity<>(userManager.getUserByName(username), HttpStatus.OK);
+    @GetMapping("/get/name={id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userManager.getUserById(id), HttpStatus.OK);
     }
 }
