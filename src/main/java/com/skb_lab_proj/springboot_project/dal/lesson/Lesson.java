@@ -13,10 +13,9 @@ import java.util.List;
 @Entity
 @Table(name = "lesson")
 public class Lesson extends BaseEntity {
-    @NonNull
-    private String name;
+    String name;
     @ManyToMany
-    private List<Task> tasks;
+    List<Task> tasks;
 
     public String getName() {
         return name;

@@ -2,20 +2,22 @@ package com.skb_lab_proj.springboot_project.dal.user;
 
 import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import java.util.List;
 
 @Entity
-@RequiredArgsConstructor
-@Table(name = "User")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "USER")
 public class User extends BaseEntity {
-    @Max(32)
+
+
     String name;
 
     String surname;
@@ -28,6 +30,10 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     List<Solution> solutionList;
+
+    public User(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
