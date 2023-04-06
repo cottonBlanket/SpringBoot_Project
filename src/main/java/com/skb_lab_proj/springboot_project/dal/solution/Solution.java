@@ -1,17 +1,23 @@
 package com.skb_lab_proj.springboot_project.dal.solution;
 
 import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
+import com.skb_lab_proj.springboot_project.dal.user.User;
 import lombok.Builder;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "solution")
+@Table(name = "SOLUTION")
 public class Solution extends BaseEntity {
-    private String gitLink;
-    private Boolean allow;
+    String gitLink;
+    Boolean allow;
+
+    @ManyToOne
+
+    User user;
 
     public String getGitLink() {
         return gitLink;

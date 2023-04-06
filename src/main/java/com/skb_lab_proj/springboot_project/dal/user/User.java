@@ -4,6 +4,7 @@ import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
 import lombok.Builder;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 import javax.persistence.*;
@@ -11,28 +12,22 @@ import javax.validation.constraints.Max;
 import java.util.List;
 
 @Entity
+@RequiredArgsConstructor
 @Table(name = "User")
 public class User extends BaseEntity {
     @Max(32)
-    @NonNull
-//    @UserConstraint
-    private String name;
+    String name;
 
-    @NonNull
-//    @UserConstraint
-    private String surname;
+    String surname;
 
-    @NonNull
-    private String email;
+    String email;
 
-    @NonNull
-    private String password;
+    String password;
 
-    @NonNull
-    private String role;
+    String role;
 
-    @ManyToMany
-    private List<Solution> solutionList;
+    @OneToMany(mappedBy = "user")
+    List<Solution> solutionList;
 
     public String getName() {
         return name;
