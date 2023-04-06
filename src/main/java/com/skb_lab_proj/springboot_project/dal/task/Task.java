@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "task")
 public class Task extends BaseEntity {
     @Column(name = "name")
     private String name;
@@ -17,6 +16,10 @@ public class Task extends BaseEntity {
 
     @ManyToMany
     private List<Solution> solutionList;
+
+    public Task(){
+
+    }
 
     public String getName() {
         return name;

@@ -20,4 +20,6 @@ public abstract class BaseEntity {
     public java.lang.Long getId() {
         return id;
     }
+
+    public BaseEntity(){}
 }

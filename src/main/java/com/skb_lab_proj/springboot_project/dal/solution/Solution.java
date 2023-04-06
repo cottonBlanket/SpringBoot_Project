@@ -8,10 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "solution")
 public class Solution extends BaseEntity {
     private String gitLink;
     private Boolean allow;
+
+    public Solution(){
+
+    }
 
     public String getGitLink() {
         return gitLink;

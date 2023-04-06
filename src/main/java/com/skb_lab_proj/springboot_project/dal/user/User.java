@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity
 public class User extends BaseEntity {
-
     @NonNull
 //    @UserConstraint
     private String name;
@@ -31,6 +30,10 @@ public class User extends BaseEntity {
 
     @ManyToMany
     private List<Solution> solutionList;
+
+    public User(){
+
+    }
 
     public String getName() {
         return name;
