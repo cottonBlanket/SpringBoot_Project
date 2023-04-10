@@ -1,22 +1,37 @@
 package com.skb_lab_proj.springboot_project.dal.task;
 
 import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
+import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Table(name = "task")
-public class Task extends BaseEntity {
+public class Task {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
+    Long id;
+
     @Column(name = "name")
-    private String name;
+    String name;
 
     @Column(name = "gitLink")
-    private String gitLink;
+    String gitLink;
 
-    @ManyToMany
-    private List<Solution> solutionList;
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    List<Solution> solutions = new LinkedList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "lesson_id")
+    Lesson lesson;
+
+    public Task() {
+    }
 
     public String getName() {
         return name;
@@ -35,10 +50,10 @@ public class Task extends BaseEntity {
     }
 
     public List<Solution> getSolutionList() {
-        return solutionList;
+        return solutions;
     }
 
     public void setSolutionList(List<Solution> solutionList) {
-        this.solutionList = solutionList;
+        this.solutions = solutionList;
     }
 }

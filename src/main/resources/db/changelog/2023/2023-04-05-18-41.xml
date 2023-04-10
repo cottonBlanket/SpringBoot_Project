@@ -3,21 +3,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="2023-04-05-18-41" author="Ainur" context="prod">
+    <changeSet id="2023-04-05-18-41" author="Danil" context="prod">
 
+        <createSequence sequenceName="hibernate_sequence" startValue="1" incrementBy="10"/>
 
-
-        <createTable tableName="solution">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="gitLink" type="varchar">
-                <constraints nullable="false"/>
-            </column>
-            <column name="allow" type="boolean">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
         <createTable tableName="user">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
@@ -37,10 +26,17 @@
             <column name="role" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="solution_id" type="bigint">
-                <constraints foreignKeyName="user_solution_fk" referencedTableName="solution" referencedColumnNames="id"/>
+        </createTable>
+
+        <createTable tableName="lesson">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar">
+                <constraints nullable="false"/>
             </column>
         </createTable>
+
         <createTable tableName="task">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
@@ -51,20 +47,32 @@
             <column name="gitLink" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="solution_id" type="bigint">
-                <constraints foreignKeyName="task_solution_fk" referencedTableName="solution" referencedColumnNames="id"/>
+            <column name="lesson_id" type="bigint">
+                <constraints foreignKeyName="task_lesson_fk" referencedTableName="lesson" referencedColumnNames="id"/>
             </column>
         </createTable>
-        <createTable tableName="lesson">
+
+        <createTable tableName="solution">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar">
+            <column name="gitLink" type="varchar">
                 <constraints nullable="false"/>
             </column>
+            <column name="allow" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="solution_user_fk"
+                             referencedTableName="user"
+                             referencedColumnNames="id"/>
+            </column>
             <column name="task_id" type="bigint">
-                <constraints foreignKeyName="lesson_task_fk" referencedTableName="task" referencedColumnNames="id"/>
+                <constraints foreignKeyName="solution_task_fk"
+                             referencedTableName="task"
+                             referencedColumnNames="id"/>
             </column>
         </createTable>
+
     </changeSet>
 </databaseChangeLog>

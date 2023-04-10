@@ -22,6 +22,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
+    implementation 'org.liquibase:liquibase-core'
 }
 
 tasks.named('test') {

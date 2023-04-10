@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER")
-public class User extends BaseEntity {
+@Table(name = "user")
+public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
+    Long id;
 
     String name;
 
@@ -29,7 +34,7 @@ public class User extends BaseEntity {
     String role;
 
     @OneToMany(mappedBy = "user")
-    List<Solution> solutionList;
+    List<Solution> solutionList = new LinkedList<>();
 
     public User(String name) {
         this.name = name;

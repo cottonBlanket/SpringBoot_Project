@@ -4,18 +4,23 @@ import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.task.Task;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Table(name = "lesson")
-public class Lesson extends BaseEntity {
+public class Lesson{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
+    Long id;
     String name;
-    @ManyToMany
-    List<Task> tasks;
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
+    List<Task> tasks = new LinkedList<>();
+
+    public Lesson() {
+    }
 
     public String getName() {
         return name;
