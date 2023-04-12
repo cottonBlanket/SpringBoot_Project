@@ -65,7 +65,8 @@
             <column name="user_id" type="bigint">
                 <constraints foreignKeyName="solution_user_fk"
                              referencedTableName="user"
-                             referencedColumnNames="id"/>
+                             referencedColumnNames="id"
+                                />
             </column>
             <column name="task_id" type="bigint">
                 <constraints foreignKeyName="solution_task_fk"

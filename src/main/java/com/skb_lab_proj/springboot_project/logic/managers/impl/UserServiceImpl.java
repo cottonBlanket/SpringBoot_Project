@@ -19,16 +19,18 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow();
     }
 
+    @Override
     @Transactional
-    public User createUser(User user)
+    public User createUser(User input)
     {
-        var a = userRepository.save(user);
+        var a = userRepository.save(input);
         return a;
     }
 }

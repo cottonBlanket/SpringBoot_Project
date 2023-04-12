@@ -5,6 +5,7 @@ import com.skb_lab_proj.springboot_project.api.controllers.user.dto.request.Crea
 import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
 import com.skb_lab_proj.springboot_project.dal.user.User;
 import com.skb_lab_proj.springboot_project.logic.managers.UserService;
+import com.skb_lab_proj.springboot_project.logic.managers.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;

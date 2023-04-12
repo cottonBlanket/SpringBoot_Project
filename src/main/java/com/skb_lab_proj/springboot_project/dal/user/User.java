@@ -3,9 +3,11 @@ package com.skb_lab_proj.springboot_project.dal.user;
 import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Null;
 import java.util.LinkedList;
 import java.util.List;
 
