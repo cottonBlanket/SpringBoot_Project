@@ -7,7 +7,7 @@
 
         <createSequence sequenceName="hibernate_sequence" startValue="1" incrementBy="10"/>
 
-        <createTable tableName="user">
+        <createTable tableName="person">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
@@ -62,9 +62,9 @@
             <column name="allow" type="boolean">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="bigint">
-                <constraints foreignKeyName="solution_user_fk"
-                             referencedTableName="user"
+            <column name="person_id" type="bigint">
+                <constraints foreignKeyName="solution_person_fk"
+                             referencedTableName="person"
                              referencedColumnNames="id"/>
             </column>
             <column name="task_id" type="bigint">

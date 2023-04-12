@@ -1,7 +1,5 @@
-package com.skb_lab_proj.springboot_project.dal.task;
+package com.skb_lab_proj.springboot_project.dal.user;
 
-import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
-import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
 import lombok.*;
 
@@ -15,24 +13,24 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "task")
-public class Task {
+@Table(name = "person")
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
     Long id;
 
-    @Column(name = "name")
     String name;
 
-    @Column(name = "gitLink")
-    String gitLink;
+    String surname;
 
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
-    List<Solution> solutions = new LinkedList<>();
+    String email;
 
-    @ManyToOne
-    @JoinColumn(name = "lesson_id")
-    Lesson lesson;
+    String password;
+
+    String role;
+
+    @OneToMany(mappedBy = "person")
+    List<Solution> solutionList = new LinkedList<>();
 }

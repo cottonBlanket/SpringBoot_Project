@@ -2,13 +2,18 @@ package com.skb_lab_proj.springboot_project.dal.lesson;
 
 import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.task.Task;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "lesson")
 public class Lesson{
     @Id
@@ -18,23 +23,4 @@ public class Lesson{
     String name;
     @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
     List<Task> tasks = new LinkedList<>();
-
-    public Lesson() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

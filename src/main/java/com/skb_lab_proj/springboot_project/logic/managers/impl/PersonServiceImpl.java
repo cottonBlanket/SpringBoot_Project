@@ -1,8 +1,8 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
-import com.skb_lab_proj.springboot_project.dal.user.User;
-import com.skb_lab_proj.springboot_project.dal.user.repositories.UserRepository;
-import com.skb_lab_proj.springboot_project.logic.managers.UserService;
+import com.skb_lab_proj.springboot_project.dal.user.Person;
+import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
+import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -10,25 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Table;
-
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class UserServiceImpl implements UserService {
+public class PersonServiceImpl implements PersonService {
 
     @Autowired
-    private UserRepository userRepository;
+    private PersonRepository personRepository;
     @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
+    public Person getUserById(Long id) {
+        return personRepository.findById(id)
                 .orElseThrow();
     }
 
     @Transactional
-    public User createUser(User user)
+    public Person createPerson(Person person)
     {
-        var a = userRepository.save(user);
+        var a = personRepository.save(person);
         return a;
     }
 }
