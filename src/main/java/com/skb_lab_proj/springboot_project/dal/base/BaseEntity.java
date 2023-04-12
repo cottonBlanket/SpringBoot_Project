@@ -1,23 +1,20 @@
 package com.skb_lab_proj.springboot_project.dal.base;
 
-import lombok.Getter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Getter
-@Entity
 public abstract class BaseEntity {
     @Id
-    private java.lang.Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
+    Long id;
 
-    public void setId(java.lang.Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
-    public java.lang.Long getId() {
-        return id;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

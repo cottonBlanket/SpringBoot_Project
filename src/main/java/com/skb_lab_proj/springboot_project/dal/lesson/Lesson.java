@@ -1,5 +1,6 @@
 package com.skb_lab_proj.springboot_project.dal.lesson;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.task.Task;
 import lombok.*;
@@ -8,14 +9,15 @@ import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "lesson")
-public class Lesson{
+public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)

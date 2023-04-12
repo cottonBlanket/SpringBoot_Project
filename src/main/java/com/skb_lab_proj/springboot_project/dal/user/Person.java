@@ -1,5 +1,6 @@
 package com.skb_lab_proj.springboot_project.dal.user;
 
+import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
 import lombok.*;
 
@@ -7,15 +8,14 @@ import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "person")
 public class Person {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)

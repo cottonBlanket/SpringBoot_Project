@@ -20,20 +20,20 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class PersonController {
 
-    @Autowired
     PersonService personService;
     private List<Person> people = new ArrayList<Person>();
 
     @PostMapping("/createuser")
     public ResponseEntity<Person> createUser(
             @RequestBody CreateUserRequestModel model) {
-        Person person = new Person();
-        person.setName(model.name);
-        person.setEmail(model.email);
-        person.setSurname(model.surname);
-        person.setRole(model.role);
-        person.setPassword(model.password);
-        Person a = personService.createPerson(person);
+        Person person = Person.builder()
+                .name(model.name)
+                .surname(model.surname)
+                .email(model.email)
+                .role(model.role)
+                .password(model.password)
+                .build();
+        var a = personService.create(person);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
@@ -45,6 +45,6 @@ public class PersonController {
 
     @GetMapping("/get/name={id}")
     public ResponseEntity<Person> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(personService.getUserById(id), HttpStatus.OK);
+        return new ResponseEntity<>(personService.get(id), HttpStatus.OK);
     }
 }
