@@ -1,9 +1,8 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
-import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
+import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
-import com.skb_lab_proj.springboot_project.logic.managers.BaseService;
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +28,14 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person get(Long id) {
-        var result = personRepository.findById(id).orElseThrow();
-        var d = 0;
-        return result;
+        return null;
+    }
+
+
+    @Override
+    @Transactional
+    public CreateUserResponseModel getUser(Long id) {
+        return personRepository.findById(id).stream().map(CreateUserResponseModel::new).findFirst().orElseThrow();
     }
 
     @Override
@@ -44,7 +48,8 @@ public class PersonServiceImpl implements PersonService {
         personRepository.deleteById(id);
     }
     @Override
-    public List<Person> getAll() {
-        return personRepository.findAll();
+    @Transactional
+    public List<CreateUserResponseModel> getAll() {
+        return personRepository.findAll().stream().map(CreateUserResponseModel::new).collect(Collectors.toList());
     }
 }

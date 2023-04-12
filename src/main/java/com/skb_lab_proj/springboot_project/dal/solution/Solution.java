@@ -32,12 +32,4 @@ public class Solution {
     @JoinColumn(name = "task_id")
     Task task;
 
-    public static Solution createSolutionFrom(CreateSolutionRequestModel model) {
-        return Solution.builder()
-                .gitLink(model.gitLink)
-                .allow(model.allow)
-                .person(model.person)
-                .task(model.task)
-                .build();
-    }
 }

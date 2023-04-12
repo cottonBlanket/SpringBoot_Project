@@ -2,6 +2,7 @@ package com.skb_lab_proj.springboot_project.api.controllers.user;
 
 import com.skb_lab_proj.springboot_project.api.annotation.UserApiV1;
 import com.skb_lab_proj.springboot_project.api.controllers.user.dto.request.CreateUserRequestModel;
+import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
 import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
@@ -32,18 +33,12 @@ public class PersonController {
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Person>> getAllUsers() {
-
-        return new ResponseEntity<>(people, HttpStatus.OK);
-    }
-
     @GetMapping("/get/name={id}")
-    public ResponseEntity<Person> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(personService.get(id), HttpStatus.OK);
+    public ResponseEntity<CreateUserResponseModel> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(personService.getUser(id), HttpStatus.OK);
     }
     @GetMapping("/getAll")
-    public ResponseEntity<List<Person>> getAll(){
+    public ResponseEntity<List<CreateUserResponseModel>> getAll(){
         return new ResponseEntity<>(personService.getAll(), HttpStatus.OK);
     }
 }
