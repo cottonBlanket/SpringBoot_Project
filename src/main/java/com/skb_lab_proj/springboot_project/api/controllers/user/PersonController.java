@@ -2,6 +2,7 @@ package com.skb_lab_proj.springboot_project.api.controllers.user;
 
 import com.skb_lab_proj.springboot_project.api.annotation.UserApiV1;
 import com.skb_lab_proj.springboot_project.api.controllers.user.dto.request.CreateUserRequestModel;
+import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +27,7 @@ public class PersonController {
     @PostMapping("/createuser")
     public ResponseEntity<Person> createUser(
             @RequestBody CreateUserRequestModel model) {
-        Person person = Person.builder()
-                .name(model.name)
-                .surname(model.surname)
-                .email(model.email)
-                .role(model.role)
-                .password(model.password)
-                .build();
+        Person person = Person.createPersonFrom(model);
         var a = personService.create(person);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
@@ -46,5 +41,9 @@ public class PersonController {
     @GetMapping("/get/name={id}")
     public ResponseEntity<Person> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(personService.get(id), HttpStatus.OK);
+    }
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Person>> getAll(){
+        return new ResponseEntity<>(personService.getAll(), HttpStatus.OK);
     }
 }

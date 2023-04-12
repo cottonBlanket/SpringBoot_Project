@@ -1,5 +1,6 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
+import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
 import com.skb_lab_proj.springboot_project.logic.managers.BaseService;
@@ -11,11 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PersonServiceImpl implements PersonService {
 
+    @Autowired
     PersonRepository personRepository;
     @Override
     public Person create(Person dal) {
@@ -24,7 +29,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person get(Long id) {
-        return personRepository.findById(id).orElseThrow();
+        var result = personRepository.findById(id).orElseThrow();
+        var d = 0;
+        return result;
     }
 
     @Override
@@ -35,5 +42,9 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void delete(Long id) {
         personRepository.deleteById(id);
+    }
+    @Override
+    public List<Person> getAll() {
+        return personRepository.findAll();
     }
 }

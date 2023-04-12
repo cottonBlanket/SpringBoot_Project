@@ -1,5 +1,7 @@
 package com.skb_lab_proj.springboot_project.dal.solution;
 
+import com.skb_lab_proj.springboot_project.api.controllers.solution.dto.request.CreateSolutionRequestModel;
+import com.skb_lab_proj.springboot_project.api.controllers.user.dto.request.CreateUserRequestModel;
 import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.task.Task;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
@@ -29,4 +31,13 @@ public class Solution {
     @ManyToOne
     @JoinColumn(name = "task_id")
     Task task;
+
+    public static Solution createSolutionFrom(CreateSolutionRequestModel model) {
+        return Solution.builder()
+                .gitLink(model.gitLink)
+                .allow(model.allow)
+                .person(model.person)
+                .task(model.task)
+                .build();
+    }
 }
