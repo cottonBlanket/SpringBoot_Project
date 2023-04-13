@@ -1,6 +1,7 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.CreateLessonResponseModel;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.LessonResponseModel;
 import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
 import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.lesson.repositories.LessonRepository;
@@ -31,8 +32,8 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     @Transactional
-    public CreateLessonResponseModel getLesson(Long id) {
-        return lessonRepository.findById(id).stream().map(CreateLessonResponseModel::new).findFirst().orElseThrow();
+    public LessonResponseModel getLesson(Long id) {
+        return lessonRepository.findById(id).stream().map(LessonResponseModel::new).findFirst().orElseThrow();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     @Transactional
-    public List<CreateLessonResponseModel> getAll() {
-        return lessonRepository.findAll().stream().map(CreateLessonResponseModel::new).collect(Collectors.toList());
+    public List<LessonResponseModel> getAll() {
+        return lessonRepository.findAll().stream().map(LessonResponseModel::new).collect(Collectors.toList());
     }
 }

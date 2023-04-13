@@ -1,6 +1,7 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
 import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
+import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.UserResponseModel;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
@@ -19,7 +20,6 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
     PersonRepository personRepository;
     @Override
     public Person create(Person dal) {
@@ -34,8 +34,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     @Transactional
-    public CreateUserResponseModel getUser(Long id) {
-        return personRepository.findById(id).stream().map(CreateUserResponseModel::new).findFirst().orElseThrow();
+    public UserResponseModel getUser(Long id) {
+        return personRepository.findById(id).stream().map(UserResponseModel::new).findFirst().orElseThrow();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class PersonServiceImpl implements PersonService {
     }
     @Override
     @Transactional
-    public List<CreateUserResponseModel> getAll() {
-        return personRepository.findAll().stream().map(CreateUserResponseModel::new).collect(Collectors.toList());
+    public List<UserResponseModel> getAll() {
+        return personRepository.findAll().stream().map(UserResponseModel::new).collect(Collectors.toList());
     }
 }

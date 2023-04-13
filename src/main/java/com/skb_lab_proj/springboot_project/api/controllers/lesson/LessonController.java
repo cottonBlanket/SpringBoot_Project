@@ -3,6 +3,7 @@ package com.skb_lab_proj.springboot_project.api.controllers.lesson;
 import com.skb_lab_proj.springboot_project.api.annotation.LessonApiV1;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.request.UpdateLessonModelRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.CreateLessonResponseModel;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.LessonResponseModel;
 import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.logic.managers.LessonService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class LessonController {
     }
 
     @GetMapping("/get/lesson/{id}")
-    public ResponseEntity<CreateLessonResponseModel> getLesson(@PathVariable Long id) {
+    public ResponseEntity<LessonResponseModel> getLesson(@PathVariable Long id) {
         var a = lessonService.getLesson(id);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
@@ -54,7 +55,7 @@ public class LessonController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<CreateLessonResponseModel>> getAll(){
+    public ResponseEntity<List<LessonResponseModel>> getAll(){
         return new ResponseEntity<>(lessonService.getAll(), HttpStatus.OK);
     }
 }
