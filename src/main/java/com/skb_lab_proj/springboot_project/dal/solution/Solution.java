@@ -1,13 +1,12 @@
 package com.skb_lab_proj.springboot_project.dal.solution;
 
-import com.skb_lab_proj.springboot_project.api.controllers.solution.dto.request.CreateSolutionRequestModel;
-import com.skb_lab_proj.springboot_project.api.controllers.user.dto.request.CreateUserRequestModel;
-import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
+import com.skb_lab_proj.springboot_project.dal.solution.enums.Status;
 import com.skb_lab_proj.springboot_project.dal.task.Task;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Stack;
 
 @Getter
 @Setter
@@ -22,7 +21,8 @@ public class Solution {
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
     Long id;
     String gitLink;
-    Boolean allow;
+    Status status;
+    int scores;
 
     @ManyToOne
     @JoinColumn(name = "person_id")

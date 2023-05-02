@@ -1,14 +1,17 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
-import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
-import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.UserResponseModel;
+import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.EditProfileRequest;
+import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.RegisterRequest;
+import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.EditProfileResponse;
+import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.RegisterResponse;
+import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.PersonResponse;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
+import com.skb_lab_proj.springboot_project.logic.managers.factory.PersonFactory;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,39 +20,37 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PersonServiceImpl implements PersonService {
 
     PersonRepository personRepository;
+    PersonFactory personFactory;
+
     @Override
-    public Person create(Person dal) {
-        return personRepository.save(dal);
+    public RegisterResponse register(RegisterRequest request) {
+        Person person = personFactory.createPersonFrom(request);
+        person = personRepository.save(person);
+        return personFactory.createResponseFrom(person);
     }
 
     @Override
-    public Person get(Long id) {
-        return null;
-    }
-
-
-    @Override
-    @Transactional
-    public UserResponseModel getUser(Long id) {
-        return personRepository.findById(id).stream().map(UserResponseModel::new).findFirst().orElseThrow();
+    public EditProfileResponse update(EditProfileRequest request) {
+        Person person = personRepository.getReferenceById(request.getId());
+        personFactory.updatePerson(person, request);
+        personRepository.save(person);
+        return EditProfileResponse.builder().id(request.getId()).build();
     }
 
     @Override
-    public void update(Person dal) {
-        personRepository.save(dal);
+    public PersonResponse getUser(Long id) {
+        Person person = personRepository.getReferenceById(id);
+        return personFactory.createPersonResponseFrom(person);
     }
 
-    @Override
-    public void delete(Long id) {
-        personRepository.deleteById(id);
-    }
-    @Override
-    @Transactional
-    public List<UserResponseModel> getAll() {
-        return personRepository.findAll().stream().map(UserResponseModel::new).collect(Collectors.toList());
-    }
+//    @Override
+//    @Transactional
+//    public List<PersonResponse> getAll() {
+//        return personRepository.findAll().stream().map(PersonResponse::new).collect(Collectors.toList());
+//    }
 }

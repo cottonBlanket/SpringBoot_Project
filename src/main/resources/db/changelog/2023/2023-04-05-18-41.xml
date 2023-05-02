@@ -23,6 +23,9 @@
             <column name="password" type="varchar">
                 <constraints nullable="false"/>
             </column>
+            <column name="group" type="integer">
+                <constraints nullable="true"/>
+            </column>
             <column name="role" type="varchar">
                 <constraints nullable="false"/>
             </column>
@@ -44,8 +47,11 @@
             <column name="name" type="varchar">
                 <constraints nullable="false"/>
             </column>
+            <column name="text" type="varchar">
+                <constraints nullable="true"/>
+            </column>
             <column name="gitLink" type="varchar">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="lesson_id" type="bigint">
                 <constraints foreignKeyName="task_lesson_fk" referencedTableName="lesson" referencedColumnNames="id"/>
@@ -59,7 +65,10 @@
             <column name="gitLink" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="allow" type="boolean">
+            <column name="status" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scores" type="integer">
                 <constraints nullable="false"/>
             </column>
             <column name="person_id" type="bigint">

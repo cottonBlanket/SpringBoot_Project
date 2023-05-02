@@ -1,7 +1,5 @@
 package com.skb_lab_proj.springboot_project.dal.user;
 
-import com.skb_lab_proj.springboot_project.api.controllers.user.dto.request.CreateUserRequestModel;
-import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
 import lombok.*;
 
@@ -30,18 +28,10 @@ public class Person {
 
     String password;
 
+    int group;
+
     String role;
 
     @OneToMany(mappedBy = "person")
     List<Solution> solutionList = new LinkedList<>();
-
-    public static Person createPersonFrom(CreateUserRequestModel model) {
-        return Person.builder()
-                .name(model.name)
-                .surname(model.surname)
-                .email(model.email)
-                .role(model.role)
-                .password(model.password)
-                .build();
-    }
 }

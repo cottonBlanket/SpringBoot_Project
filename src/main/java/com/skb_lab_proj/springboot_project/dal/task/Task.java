@@ -1,6 +1,5 @@
 package com.skb_lab_proj.springboot_project.dal.task;
 
-import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.solution.Solution;
 import lombok.*;
@@ -21,16 +20,11 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
     Long id;
-
-    @Column(name = "name")
     String name;
-
-    @Column(name = "gitLink")
+    String text;
     String gitLink;
-
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
     List<Solution> solutions = new LinkedList<>();
-
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     Lesson lesson;

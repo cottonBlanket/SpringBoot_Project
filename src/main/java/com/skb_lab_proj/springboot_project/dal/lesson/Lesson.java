@@ -1,7 +1,5 @@
 package com.skb_lab_proj.springboot_project.dal.lesson;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.skb_lab_proj.springboot_project.dal.base.BaseEntity;
 import com.skb_lab_proj.springboot_project.dal.task.Task;
 import lombok.*;
 

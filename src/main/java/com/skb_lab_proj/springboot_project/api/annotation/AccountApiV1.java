@@ -11,6 +11,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@RequestMapping(value = "/api/v1/user", produces = APPLICATION_JSON_VALUE)
-public @interface UserApiV1 {
+@RequestMapping(value = "/api/v1/account", produces = APPLICATION_JSON_VALUE)
+public @interface AccountApiV1 {
 }

@@ -1,11 +1,12 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
-import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.CreateLessonResponseModel;
-import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.LessonResponseModel;
-import com.skb_lab_proj.springboot_project.api.controllers.user.dto.response.CreateUserResponseModel;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.request.CreateLessonRequest;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.CreateLessonResponse;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.LessonResponse;
 import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.dal.lesson.repositories.LessonRepository;
 import com.skb_lab_proj.springboot_project.logic.managers.LessonService;
+import com.skb_lab_proj.springboot_project.logic.managers.factory.LessonFactory;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,40 +18,22 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class LessonServiceImpl implements LessonService {
     LessonRepository lessonRepository;
+    LessonFactory lessonFactory;
+
     @Override
-    public Lesson create(Lesson dal) {
-        return lessonRepository.save(dal);
+    public CreateLessonResponse create(CreateLessonRequest request) {
+        Lesson lesson = Lesson.builder().name(request.getName()).build();
+        lesson = lessonRepository.save(lesson);
+        return lessonFactory.createResponseFrom(lesson);
     }
 
     @Override
-    public Lesson get(Long id) {
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public LessonResponseModel getLesson(Long id) {
-        return lessonRepository.findById(id).stream().map(LessonResponseModel::new).findFirst().orElseThrow();
-    }
-
-    @Override
-    public void update(Lesson dal) {
-
-        lessonRepository.save(dal);
-    }
-
-    @Override
-    public void delete(Long id) {
-
-        lessonRepository.deleteById(id);
-    }
-
-    @Override
-    @Transactional
-    public List<LessonResponseModel> getAll() {
-        return lessonRepository.findAll().stream().map(LessonResponseModel::new).collect(Collectors.toList());
+    public LessonResponse get(Long id) {
+        Lesson lesson = lessonRepository.getReferenceById(id);
+        return lessonFactory.createLessonResponseFrom(lesson);
     }
 }

@@ -1,8 +1,11 @@
 package com.skb_lab_proj.springboot_project.api.controllers.lesson;
 
 import com.skb_lab_proj.springboot_project.api.annotation.LessonApiV1;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.request.CreateLessonRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.request.UpdateLessonModelRequest;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.CreateLessonResponse;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.CreateLessonResponseModel;
+import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.LessonResponse;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.LessonResponseModel;
 import com.skb_lab_proj.springboot_project.dal.lesson.Lesson;
 import com.skb_lab_proj.springboot_project.logic.managers.LessonService;
@@ -22,27 +25,21 @@ import static lombok.AccessLevel.PRIVATE;
 public class LessonController {
     LessonService lessonService;
 
-    @PostMapping("/createLesson/{name}")
-    public ResponseEntity<Lesson> createLesson(
-            @PathVariable String name){
-        var lesson = Lesson.builder()
-                .name(name)
-                .build();
-        var a = lessonService.create(lesson);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+    @PostMapping("/create")
+    public ResponseEntity<CreateLessonResponse> createLesson(@ResponseBody CreateLessonRequest request){
+        return new ResponseEntity<>(lessonService.create(request), HttpStatus.OK);
     }
 
-    @GetMapping("/get/lesson/{id}")
-    public ResponseEntity<LessonResponseModel> getLesson(@PathVariable Long id) {
-        var a = lessonService.getLesson(id);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<LessonResponse> getLesson(@PathVariable Long id) {
+        return new ResponseEntity<>(lessonService.get(id), HttpStatus.OK);
     }
 
-    @PostMapping("/updateLesson/{name}")
+    @PostMapping("/{lessonId:Long}")
     public ResponseEntity<Lesson> updateLesson(
-            @PathVariable String name){
+            @PathVariable Long lessonId){
         Lesson lesson = Lesson.builder()
-                .name(name)
+                .name(lessonId.toString())
                 .build();
         lessonService.update(lesson);
         return new ResponseEntity<>(HttpStatus.OK);
