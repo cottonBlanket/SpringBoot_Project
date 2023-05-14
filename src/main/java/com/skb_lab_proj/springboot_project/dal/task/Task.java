@@ -22,7 +22,6 @@ public class Task {
     Long id;
     String name;
     String text;
-    String gitLink;
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
     List<Solution> solutions = new LinkedList<>();
     @ManyToOne

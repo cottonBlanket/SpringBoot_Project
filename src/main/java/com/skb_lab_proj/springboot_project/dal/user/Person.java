@@ -28,7 +28,9 @@ public class Person {
 
     String password;
 
-    int group;
+    boolean enable;
+
+    Integer room;
 
     String role;
 

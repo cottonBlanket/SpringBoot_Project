@@ -20,7 +20,7 @@ public class Solution {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
     Long id;
-    String gitLink;
+    String link;
     Status status;
     int scores;
 

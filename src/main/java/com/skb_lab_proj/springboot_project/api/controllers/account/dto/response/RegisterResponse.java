@@ -8,7 +8,6 @@ import lombok.Value;
 public class RegisterResponse {
 
     public Long id;
-
-    public String name;
     public String email;
+    public String role;
 }

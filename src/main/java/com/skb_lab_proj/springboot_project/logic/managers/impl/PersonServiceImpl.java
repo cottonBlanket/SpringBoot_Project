@@ -1,5 +1,6 @@
 package com.skb_lab_proj.springboot_project.logic.managers.impl;
 
+import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.ChangeUserRoleRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.EditProfileRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.RegisterRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.EditProfileResponse;
@@ -10,8 +11,11 @@ import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepositor
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
 import com.skb_lab_proj.springboot_project.logic.managers.factory.PersonFactory;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +39,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public EditProfileResponse update(EditProfileRequest request) {
+    public EditProfileResponse update(EditProfileRequest request, String email) {
         Person person = personRepository.getReferenceById(request.getId());
         personFactory.updatePerson(person, request);
         personRepository.save(person);
@@ -43,14 +47,51 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonResponse getUser(Long id) {
+    public PersonResponse getUser(Long id, String email) {
         Person person = personRepository.getReferenceById(id);
         return personFactory.createPersonResponseFrom(person);
     }
 
-//    @Override
-//    @Transactional
-//    public List<PersonResponse> getAll() {
-//        return personRepository.findAll().stream().map(PersonResponse::new).collect(Collectors.toList());
-//    }
+    public PersonResponse getProfile(String email) {
+        Person person = personRepository.findPersonByEmail(email);
+        return personFactory.createPersonResponseFrom(person);
+    }
+
+    @Override
+    public void deleteAccount(Long id) {
+        personRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteStudents() {
+        personRepository.deleteAllByRole("ROLE_STUDENT");
+    }
+
+    @Override
+    public PersonResponse changeUserRole(ChangeUserRoleRequest request) {
+        Person person = personRepository.findById(request.getId()).orElseThrow();
+        person.setRole(request.getRole());
+        personRepository.save(person);
+        return personFactory.createPersonResponseFrom(person);
+    }
+
+    @Override
+    public List<PersonResponse> getAll(Integer room) {
+        List<Person> persons = personRepository.findAll();
+        if(room != null)
+            persons = persons.stream().filter(x -> x.getRoom().equals(room)).collect(Collectors.toList());
+        return persons.stream().map(personFactory::createPersonResponseFrom).collect(Collectors.toList());
+    }
+
+    @Override
+    public void divideStudents(Integer roomCount) {
+        List<Person> students = personRepository.findAllByRoomIsNull();
+        int currentRoom = 1;
+        for (Person student: students) {
+            student.setRoom(currentRoom);
+            currentRoom++;
+            if(currentRoom > roomCount)
+                currentRoom = 1;
+        }
+    }
 }

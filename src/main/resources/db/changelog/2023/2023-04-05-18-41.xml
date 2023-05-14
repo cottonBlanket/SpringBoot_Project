@@ -23,7 +23,10 @@
             <column name="password" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="group" type="integer">
+            <column name="enable" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="room" type="integer">
                 <constraints nullable="true"/>
             </column>
             <column name="role" type="varchar">
@@ -50,9 +53,6 @@
             <column name="text" type="varchar">
                 <constraints nullable="true"/>
             </column>
-            <column name="gitLink" type="varchar">
-                <constraints nullable="true"/>
-            </column>
             <column name="lesson_id" type="bigint">
                 <constraints foreignKeyName="task_lesson_fk" referencedTableName="lesson" referencedColumnNames="id"/>
             </column>
@@ -62,7 +62,7 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="gitLink" type="varchar">
+            <column name="link" type="varchar">
                 <constraints nullable="false"/>
             </column>
             <column name="status" type="varchar">

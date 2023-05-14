@@ -14,7 +14,5 @@ public class PersonResponse {
 
     String email;
 
-    String password;
-
-    int group;
+    Integer room;
 }

@@ -25,6 +25,7 @@ public class PersonFactory {
                 .surname(request.getSurname())
                 .email(request.getEmail())
                 .role("ROLE_STUDENT")
+                .enable(true)
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
     }
@@ -33,7 +34,7 @@ public class PersonFactory {
         return RegisterResponse
                 .builder()
                 .id(person.getId())
-                .name(person.getName())
+                .role(person.getRole())
                 .email(person.getEmail())
                 .build();
     }
@@ -42,7 +43,7 @@ public class PersonFactory {
         person.setName(request.getName());
         person.setSurname(request.getSurname());
         person.setEmail(request.getEmail());
-        person.setPassword(request.getPassword());
+        person.setPassword(passwordEncoder.encode(request.getPassword()));
     }
 
     public PersonResponse createPersonResponseFrom(Person person) {
@@ -52,8 +53,7 @@ public class PersonFactory {
                 .name(person.getName())
                 .surname(person.getSurname())
                 .email(person.getEmail())
-                .password(person.getPassword())
-                .group(person.getGroup())
+                .room(person.getRoom())
                 .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.skb_lab_proj.springboot_project.api.controllers.account;
 
 import com.skb_lab_proj.springboot_project.api.annotation.AccountApiV1;
+import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.ChangeUserRoleRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.EditProfileRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.RegisterRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.EditProfileResponse;
@@ -11,7 +12,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.Null;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -28,12 +34,12 @@ public class PersonController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<EditProfileResponse> editProfile(@RequestBody EditProfileRequest model) {
-        return new ResponseEntity<>(personService.update(model), HttpStatus.OK);
+    public ResponseEntity<EditProfileResponse> editProfile(@RequestBody EditProfileRequest model, Authentication auth) {
+        return new ResponseEntity<>(personService.update(model, auth.getName()), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PersonResponse> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(personService.getUser(id), HttpStatus.OK);
+    @GetMapping("/profile")
+    public ResponseEntity<PersonResponse> getMyProfile(Authentication auth) {
+        return new ResponseEntity<>(personService.getProfile(auth.getName()), HttpStatus.OK);
     }
 }

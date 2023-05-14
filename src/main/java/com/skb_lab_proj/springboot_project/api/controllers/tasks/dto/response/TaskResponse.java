@@ -11,4 +11,6 @@ public class TaskResponse {
 
     public String name;
     public String text;
+
+    public Long lessonId;
 }
