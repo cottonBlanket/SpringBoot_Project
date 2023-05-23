@@ -1,7 +1,7 @@
 package com.skb_lab_proj.springboot_project.api.controllers.lesson;
 
-import com.skb_lab_proj.springboot_project.api.annotation.AdminApiV1;
-import com.skb_lab_proj.springboot_project.api.annotation.LessonApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.AdminApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.ControllerApi;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.request.UpdateLessonRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.CreateLessonResponse;
 import com.skb_lab_proj.springboot_project.api.controllers.lesson.dto.response.LessonInfoResponse;

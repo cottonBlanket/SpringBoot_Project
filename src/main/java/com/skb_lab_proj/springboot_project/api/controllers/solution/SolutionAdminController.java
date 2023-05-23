@@ -1,6 +1,7 @@
 package com.skb_lab_proj.springboot_project.api.controllers.solution;
 
-import com.skb_lab_proj.springboot_project.api.annotation.AdminApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.AdminApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.ControllerApi;
 import com.skb_lab_proj.springboot_project.api.controllers.solution.dto.request.ReviewSolutionRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.solution.dto.response.ReviewResponse;
 import com.skb_lab_proj.springboot_project.api.controllers.solution.dto.response.SolutionResponse;

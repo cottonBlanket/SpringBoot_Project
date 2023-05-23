@@ -16,6 +16,7 @@ import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
 import com.skb_lab_proj.springboot_project.logic.managers.SolutionService;
 import com.skb_lab_proj.springboot_project.logic.managers.factory.SolutionFactory;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -33,12 +34,14 @@ public class SolutionServiceImpl implements SolutionService {
     TaskRepository taskRepository;
     PersonRepository personRepository;
     SolutionFactory solutionFactory;
+    MeterRegistry meterRegistry;
     @Override
     public PartSolutionResponse createSolution(SendSolutionRequest request, String email) {
         Task task = taskRepository.getReferenceById(request.getTaskId());
         Person student = personRepository.findPersonByEmail(email);
         Solution solution = solutionFactory.createSolutionFrom(request.getLink(), task, student);
         solution = solutionRepository.save(solution);
+        meterRegistry.counter("solutions.count").increment();
         return solutionFactory.createPartSolutionResponseFrom(solution);
     }
 

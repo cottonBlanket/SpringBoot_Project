@@ -1,6 +1,7 @@
 package com.skb_lab_proj.springboot_project.api.controllers.tasks;
 
-import com.skb_lab_proj.springboot_project.api.annotation.AdminApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.AdminApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.ControllerApi;
 import com.skb_lab_proj.springboot_project.api.controllers.tasks.dto.request.CreateTaskRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.tasks.dto.request.UpdateTaskRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.tasks.dto.response.TaskResponse;

@@ -36,4 +36,8 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     List<Solution> solutionList = new LinkedList<>();
+
+    public String getFullName() {
+        return surname + " " + name;
+    }
 }

@@ -1,4 +1,4 @@
-package com.skb_lab_proj.springboot_project.api.annotation;
+package com.skb_lab_proj.springboot_project.api.annotation.api;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

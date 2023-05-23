@@ -1,6 +1,7 @@
 package com.skb_lab_proj.springboot_project.api.controllers.account;
 
-import com.skb_lab_proj.springboot_project.api.annotation.AdminApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.AdminApiV1;
+import com.skb_lab_proj.springboot_project.api.annotation.api.ControllerApi;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.request.ChangeUserRoleRequest;
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.PersonResponse;
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
