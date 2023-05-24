@@ -8,6 +8,7 @@ import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.
 import com.skb_lab_proj.springboot_project.api.controllers.account.dto.response.PersonResponse;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
+import com.skb_lab_proj.springboot_project.logic.events.PersonCreateEvent;
 import com.skb_lab_proj.springboot_project.logic.managers.PersonService;
 import com.skb_lab_proj.springboot_project.logic.managers.factory.PersonFactory;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -15,6 +16,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -32,12 +34,14 @@ public class PersonServiceImpl implements PersonService {
     PersonRepository personRepository;
     PersonFactory personFactory;
     MeterRegistry meterRegistry;
+    ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public RegisterResponse register(RegisterRequest request) {
         Person person = personFactory.createPersonFrom(request);
         person = personRepository.save(person);
         meterRegistry.counter("accounts.count").increment();
+        applicationEventPublisher.publishEvent(new PersonCreateEvent(person.getId(), person.getEmail()));
         return personFactory.createResponseFrom(person);
     }
 

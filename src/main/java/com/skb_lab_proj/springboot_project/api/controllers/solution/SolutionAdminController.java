@@ -9,6 +9,7 @@ import com.skb_lab_proj.springboot_project.dal.solution.enums.Status;
 import com.skb_lab_proj.springboot_project.logic.managers.SolutionService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AdminApiV1
@@ -28,7 +30,7 @@ public class SolutionAdminController {
     SolutionService solutionService;
 
     @PatchMapping("solution/review")
-    public ResponseEntity<ReviewResponse> reviewSolution(@RequestBody ReviewSolutionRequest request, Authentication auth) {
+    public ResponseEntity<ReviewResponse> reviewSolution(@RequestBody @Valid ReviewSolutionRequest request, Authentication auth) {
         return new ResponseEntity<>(solutionService.reviewSolution(request, auth.getName()), HttpStatus.OK);
     }
 

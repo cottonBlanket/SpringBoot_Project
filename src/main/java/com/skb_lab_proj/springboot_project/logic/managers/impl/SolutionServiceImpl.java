@@ -14,13 +14,17 @@ import com.skb_lab_proj.springboot_project.dal.task.Task;
 import com.skb_lab_proj.springboot_project.dal.task.repositories.TaskRepository;
 import com.skb_lab_proj.springboot_project.dal.user.Person;
 import com.skb_lab_proj.springboot_project.dal.user.repositories.PersonRepository;
+import com.skb_lab_proj.springboot_project.logic.events.SolutionReviewedEvent;
+import com.skb_lab_proj.springboot_project.logic.events.SolutionSentEvent;
 import com.skb_lab_proj.springboot_project.logic.managers.SolutionService;
 import com.skb_lab_proj.springboot_project.logic.managers.factory.SolutionFactory;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +32,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@Transactional
 public class SolutionServiceImpl implements SolutionService {
 
     SolutionRepository solutionRepository;
@@ -35,6 +40,7 @@ public class SolutionServiceImpl implements SolutionService {
     PersonRepository personRepository;
     SolutionFactory solutionFactory;
     MeterRegistry meterRegistry;
+    ApplicationEventPublisher applicationEventPublisher;
     @Override
     public PartSolutionResponse createSolution(SendSolutionRequest request, String email) {
         Task task = taskRepository.getReferenceById(request.getTaskId());
@@ -42,6 +48,7 @@ public class SolutionServiceImpl implements SolutionService {
         Solution solution = solutionFactory.createSolutionFrom(request.getLink(), task, student);
         solution = solutionRepository.save(solution);
         meterRegistry.counter("solutions.count").increment();
+        applicationEventPublisher.publishEvent(new SolutionSentEvent(student.getFullName(), solution.getLink()));
         return solutionFactory.createPartSolutionResponseFrom(solution);
     }
 
@@ -81,6 +88,7 @@ public class SolutionServiceImpl implements SolutionService {
             solution.setStatus(request.getStatus());
             solution.setScores(request.getScores());
             solutionRepository.save(solution);
+            applicationEventPublisher.publishEvent(new SolutionReviewedEvent(person.getFullName(), solution.getTask().getName()));
             return solutionFactory.createReviewResponseFrom(solution);
         }
         throw new ForbiddenException("Вы должны иметь роль ADMIN, чтобы иметь доступ к проверке решений");

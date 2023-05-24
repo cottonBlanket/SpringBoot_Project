@@ -6,6 +6,5 @@ import lombok.Value;
 @Value
 @Getter
 public class CreateLessonRequest {
-
     String name;
 }

@@ -20,6 +20,6 @@ public class SolutionReviewListener {
     public void usualListener(SolutionReviewedEvent event)
     {
         log.info("{}'s solution for task {} was reviewed", event.getStudentName(), event.getTask());
-        rabbitService.send(event, "solution.review");
+//        rabbitService.send(event, "solution.review");
     }
 }

@@ -22,6 +22,6 @@ public class SolutionSentListenerAsync {
     @Async
     public void asyncListener(SolutionSentEvent event) {
         log.info("Student {} sent solution with link {}", event.getStudentName(), event.getSolutionLink());
-        rabbitService.send(event, "solution.sent");
+//        rabbitService.send(event, "solution.sent");
     }
 }

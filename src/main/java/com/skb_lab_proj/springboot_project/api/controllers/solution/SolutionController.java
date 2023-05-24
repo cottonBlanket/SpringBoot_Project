@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @SolutionApiV1
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -23,12 +25,12 @@ public class SolutionController {
     SolutionService solutionService;
 
     @PostMapping("/send")
-    public ResponseEntity<PartSolutionResponse> sendSolution(@RequestBody SendSolutionRequest request, Authentication auth) {
+    public ResponseEntity<PartSolutionResponse> sendSolution(@RequestBody @Valid SendSolutionRequest request, Authentication auth) {
         return new ResponseEntity<>(solutionService.createSolution(request, auth.getName()), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<PartSolutionResponse> updateSolution(@RequestBody UpdateSolutionRequest request, Authentication auth) {
+    public ResponseEntity<PartSolutionResponse> updateSolution(@RequestBody @Valid UpdateSolutionRequest request, Authentication auth) {
         return new ResponseEntity<>(solutionService.updateSolution(request, auth.getName()), HttpStatus.OK);
     }
 

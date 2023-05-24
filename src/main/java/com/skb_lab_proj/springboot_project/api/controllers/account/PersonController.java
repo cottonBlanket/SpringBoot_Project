@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static lombok.AccessLevel.PRIVATE;
 
 @AccountApiV1
@@ -27,12 +29,12 @@ public class PersonController {
 
     @AccountLimit
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest model) {
+    public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest model) {
         return new ResponseEntity<>(personService.register(model), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<EditProfileResponse> editProfile(@RequestBody EditProfileRequest model, Authentication auth) {
+    public ResponseEntity<EditProfileResponse> editProfile(@RequestBody @Valid EditProfileRequest model, Authentication auth) {
         return new ResponseEntity<>(personService.update(model, auth.getName()), HttpStatus.OK);
     }
 
