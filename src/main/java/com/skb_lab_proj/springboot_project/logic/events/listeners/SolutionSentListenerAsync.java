@@ -1,6 +1,5 @@
 package com.skb_lab_proj.springboot_project.logic.events.listeners;
 
-import com.skb_lab_proj.springboot_project.logic.config.RabbitConfig;
 import com.skb_lab_proj.springboot_project.logic.events.SolutionSentEvent;
 import com.skb_lab_proj.springboot_project.logic.managers.RabbitService;
 import lombok.AccessLevel;
@@ -22,6 +21,6 @@ public class SolutionSentListenerAsync {
     @Async
     public void asyncListener(SolutionSentEvent event) {
         log.info("Student {} sent solution with link {}", event.getStudentName(), event.getSolutionLink());
-//        rabbitService.send(event, "solution.sent");
+        rabbitService.send(event, "solution.sent");
     }
 }

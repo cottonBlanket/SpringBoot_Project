@@ -25,7 +25,7 @@ public class StudentsActuator {
 
     @ReadOperation
     public List<Student> students() {
-        List<Person> students = personRepository.deleteAllByRole("ROLE_STUDENT");
+        List<Person> students = personRepository.findAllByRole("ROLE_STUDENT");
         return students.stream().map(studentFactory::createStudentFrom).collect(Collectors.toList());
     }
 }

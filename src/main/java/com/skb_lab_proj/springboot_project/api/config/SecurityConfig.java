@@ -21,8 +21,8 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/account/register").permitAll()
+                .antMatchers("/api/**").hasAnyRole("ADMIN", "STUDENT")
                 .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                .anyRequest().hasAnyRole("ADMIN", "STUDENT")
                 .and()
                 .httpBasic();;
         return http.build();
@@ -39,6 +39,6 @@ public class SecurityConfig {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .authoritiesByUsernameQuery("select email, role from person where email=?")
-                .usersByUsernameQuery("select email, password, enable as enabled from person where email=?");
+                .usersByUsernameQuery("select email, password, enabled from person where email=?");
     }
 }

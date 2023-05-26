@@ -5,14 +5,13 @@ import lombok.Value;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Value
 @Getter
 public class RegisterRequest {
 
-    @Max(20)
     String name;
-    @Max(20)
     String surname;
     String password;
     @Email

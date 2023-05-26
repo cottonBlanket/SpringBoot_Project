@@ -22,7 +22,7 @@ public class Task {
     Long id;
     String name;
     String text;
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
     List<Solution> solutions = new LinkedList<>();
     @ManyToOne
     @JoinColumn(name = "lesson_id")

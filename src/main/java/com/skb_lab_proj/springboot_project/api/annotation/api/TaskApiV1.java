@@ -11,6 +11,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@RequestMapping(value = "/api/v1/admin/task", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/task", produces = APPLICATION_JSON_VALUE)
 public @interface TaskApiV1 {
 }

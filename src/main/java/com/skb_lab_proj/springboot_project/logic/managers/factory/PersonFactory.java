@@ -25,7 +25,7 @@ public class PersonFactory {
                 .surname(request.getSurname())
                 .email(request.getEmail())
                 .role("ROLE_STUDENT")
-                .enable(true)
+                .enabled(true)
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
     }

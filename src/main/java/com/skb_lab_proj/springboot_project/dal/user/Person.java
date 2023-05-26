@@ -28,13 +28,13 @@ public class Person {
 
     String password;
 
-    boolean enable;
+    boolean enabled;
 
     Integer room;
 
     String role;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     List<Solution> solutionList = new LinkedList<>();
 
     public String getFullName() {

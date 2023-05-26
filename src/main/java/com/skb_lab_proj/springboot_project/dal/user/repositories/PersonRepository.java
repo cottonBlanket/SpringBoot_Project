@@ -10,6 +10,6 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     Person findPersonByEmail(String email);
     List<Person> deleteAllByRole(String role);
-    List<Person> findAllByRoomIsNull();
+    List<Person> findAllByRoleAndRoomIsNull(String role);
     List<Person> findAllByRole(String role);
 }

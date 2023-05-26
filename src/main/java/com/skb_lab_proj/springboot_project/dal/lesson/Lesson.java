@@ -21,6 +21,6 @@ public class Lesson {
     @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 10)
     Long id;
     String name;
-    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
     List<Task> tasks = new LinkedList<>();
 }

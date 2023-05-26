@@ -36,9 +36,8 @@ public class SolutionAdminController {
 
     @GetMapping("solution/all")
     public ResponseEntity<List<SolutionResponse>> getAllSolutionByTask(@RequestParam(required = false) Long task,
-                                                                       @RequestParam(required = false) String role,
                                                                        @RequestParam(required = false) Integer room,
                                                                        @RequestParam(required = false) Status status) {
-        return new ResponseEntity<>(solutionService.getAllSolutionWithFilters(task, role, room, status), HttpStatus.OK);
+        return new ResponseEntity<>(solutionService.getAllSolutionWithFilters(task, room, status), HttpStatus.OK);
     }
 }

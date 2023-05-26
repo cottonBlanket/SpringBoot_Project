@@ -16,18 +16,22 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PersonServiceImpl implements PersonService {
 
@@ -45,12 +49,17 @@ public class PersonServiceImpl implements PersonService {
         return personFactory.createResponseFrom(person);
     }
 
+    @Scheduled(fixedRate = 10000)
+    public void reportCurrentTime() {
+        log.info("Время: минут пять десять пятого, четыре пять десять пятого");
+    }
+
     @Override
     public EditProfileResponse update(EditProfileRequest request, String email) {
-        Person person = personRepository.getReferenceById(request.getId());
+        Person person = personRepository.findPersonByEmail(email);
         personFactory.updatePerson(person, request);
         personRepository.save(person);
-        return EditProfileResponse.builder().id(request.getId()).build();
+        return EditProfileResponse.builder().id(person.getId()).build();
     }
 
     @Override
@@ -84,7 +93,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonResponse> getAll(Integer room) {
-        List<Person> persons = personRepository.findAll();
+        List<Person> persons = personRepository.findAllByRole("ROLE_STUDENT");
         if(room != null)
             persons = persons.stream().filter(x -> x.getRoom().equals(room)).collect(Collectors.toList());
         return persons.stream().map(personFactory::createPersonResponseFrom).collect(Collectors.toList());
@@ -92,7 +101,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void divideStudents(Integer roomCount) {
-        List<Person> students = personRepository.findAllByRoomIsNull();
+        List<Person> students = personRepository.findAllByRole("ROLE_STUDENT");
         int currentRoom = 1;
         for (Person student: students) {
             student.setRoom(currentRoom);

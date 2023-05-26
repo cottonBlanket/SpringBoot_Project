@@ -22,6 +22,6 @@ public class PersonCreateListener {
     @SneakyThrows
     public void handlePersonCreateEvent(PersonCreateEvent event) {
         log.info("Person with email {} was created!", event.getEmail());
-//        rabbitService.send(event, "person.create");
+        rabbitService.send(event, "person.create");
     }
 }

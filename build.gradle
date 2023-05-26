@@ -18,11 +18,12 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-security',
             'org.springframework.boot:spring-boot-starter-actuator',
             'io.micrometer:micrometer-registry-prometheus',
-//            'org.springframework.boot:spring-boot-starter-amqp',
+            'org.springframework.boot:spring-boot-starter-amqp',
             'org.postgresql:postgresql',
             'org.liquibase:liquibase-core',
             'org.springframework.boot:spring-boot-starter-validation',
-            'org.liquibase:liquibase-core'
+            'org.liquibase:liquibase-core',
+            'org.springdoc:springdoc-openapi-ui:1.6.4'
     annotationProcessor 'org.springframework.boot:spring-boot-starter-aop',
             'org.springframework.boot:spring-boot-configuration-processor'
     compileOnly 'org.projectlombok:lombok:1.18.20'

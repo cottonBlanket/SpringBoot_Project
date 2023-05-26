@@ -36,7 +36,7 @@ public class PersonAdminController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/account/{id}")
+    @DeleteMapping("/person/{id}")
     public ResponseEntity<PersonResponse> deletePerson(@PathVariable Long id) {
         personService.deleteAccount(id);
         return new ResponseEntity<>(HttpStatus.OK);

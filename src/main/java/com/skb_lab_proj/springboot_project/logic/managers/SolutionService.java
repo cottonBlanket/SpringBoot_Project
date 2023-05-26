@@ -17,5 +17,5 @@ public interface SolutionService {
     SolutionResponse getSolution(Long id, String email);
     void deleteSolution(Long id, String email);
     ReviewResponse reviewSolution(ReviewSolutionRequest request, String email);
-    List<SolutionResponse> getAllSolutionWithFilters(Long taskId, String role, Integer room, Status status);
+    List<SolutionResponse> getAllSolutionWithFilters(Long taskId, Integer room, Status status);
 }

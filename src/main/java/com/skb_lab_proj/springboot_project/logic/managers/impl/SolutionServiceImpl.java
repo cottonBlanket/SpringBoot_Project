@@ -67,23 +67,26 @@ public class SolutionServiceImpl implements SolutionService {
     public SolutionResponse getSolution(Long id, String email) {
         Solution solution = solutionRepository.findById(id).orElseThrow();
         Person person = personRepository.findPersonByEmail(email);
-        if(solution.getPerson().getEmail().equals(email) || person.getRole().equals("ADMIN"))
+        if(solution.getPerson().getEmail().equals(email) || person.getRole().equals("ROLE_ADMIN"))
             return solutionFactory.createSolutionResponseFrom(solution);
         throw new ForbiddenException("Данное решение вам недоступно");
     }
 
     @Override
     public void deleteSolution(Long id, String email) {
-        Solution solution = solutionRepository.getReferenceById(id);
-        if(checkPermit(solution, email))
+        Solution solution = solutionRepository.findById(id).orElseThrow();
+        if(solution.getPerson().getEmail().equals(email))
+        {
             solutionRepository.deleteById(id);
+            return;
+        }
         throw new ForbiddenException("Удаление данного решения вам недоступно");
     }
 
     @Override
     public ReviewResponse reviewSolution(ReviewSolutionRequest request, String email) {
         Person person = personRepository.findPersonByEmail(email);
-        if(person.getRole().equals("ADMIN")) {
+        if(person.getRole().equals("ROLE_ADMIN")) {
             Solution solution = solutionRepository.findById(request.getId()).orElseThrow();
             solution.setStatus(request.getStatus());
             solution.setScores(request.getScores());
@@ -95,20 +98,14 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public List<SolutionResponse> getAllSolutionWithFilters(Long taskId, String role, Integer room, Status status) {
+    public List<SolutionResponse> getAllSolutionWithFilters(Long taskId, Integer room, Status status) {
         List<Solution> solutions = solutionRepository.findAll();
         if(taskId != null)
             solutions = solutions.stream().filter(x -> x.getTask().getId().equals(taskId)).collect(Collectors.toList());
         if(status != null)
             solutions = solutions.stream().filter(x -> x.getStatus().equals(status)).collect(Collectors.toList());
-        if(role != null)
-            solutions = solutions.stream().filter(x -> x.getPerson().getRole().equals(role)).collect(Collectors.toList());
         if(room != null)
             solutions = solutions.stream().filter(x -> x.getPerson().getRoom().equals(room)).collect(Collectors.toList());
         return solutions.stream().map(solutionFactory::createSolutionResponseFrom).collect(Collectors.toList());
-    }
-
-    private boolean checkPermit(Solution solution, String email) {
-        return solution.getPerson().getEmail().equals(email);
     }
 }

@@ -23,7 +23,7 @@
             <column name="password" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="enable" type="boolean">
+            <column name="enabled" type="boolean">
                 <constraints nullable="false"/>
             </column>
             <column name="room" type="integer">
@@ -54,7 +54,10 @@
                 <constraints nullable="true"/>
             </column>
             <column name="lesson_id" type="bigint">
-                <constraints foreignKeyName="task_lesson_fk" referencedTableName="lesson" referencedColumnNames="id"/>
+                <constraints foreignKeyName="task_lesson_fk"
+                             referencedTableName="lesson"
+                             referencedColumnNames="id"
+                deleteCascade="true"/>
             </column>
         </createTable>
 
@@ -74,12 +77,14 @@
             <column name="person_id" type="bigint">
                 <constraints foreignKeyName="solution_person_fk"
                              referencedTableName="person"
-                             referencedColumnNames="id"/>
+                             referencedColumnNames="id"
+                deleteCascade="true"/>
             </column>
             <column name="task_id" type="bigint">
                 <constraints foreignKeyName="solution_task_fk"
                              referencedTableName="task"
-                             referencedColumnNames="id"/>
+                             referencedColumnNames="id"
+                deleteCascade="true"/>
             </column>
         </createTable>
 
